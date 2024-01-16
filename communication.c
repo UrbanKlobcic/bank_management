@@ -39,6 +39,30 @@ void pars_command(){
                         open_account(name, balance);
                     }
                 }
+            }else if(command_selected == 2){
+                printf("To deposit on an account please enter your bank account:\n");
+                empty_buffer(communication_buffer);
+                char bank_account[MAX_BUFFER_SIZE];
+                char pin_number[MAX_BUFFER_SIZE];
+                if (fgets(communication_buffer, sizeof(communication_buffer), stdin) != NULL) {
+                    if (sscanf(communication_buffer, "%19[^\n]", bank_account) == 1) {//process input 
+                        
+                    }
+                }
+                printf("And now your pin number:\n");
+                if (fgets(communication_buffer, sizeof(communication_buffer), stdin) != NULL) {
+                    if (sscanf(communication_buffer, "%s", pin_number) == 1) {//process input
+                        
+                    }
+                }
+                printf("bank account %s \npin number: %s \n", bank_account, pin_number);
+                if(account_pin_exist(pin_number, bank_account)==0){
+                    
+                }else if(account_pin_exist(pin_number, bank_account)==1){
+
+                }else if(account_pin_exist(pin_number, bank_account)==2){
+                    
+                }
             }
         } else {
             printf("No correct command detected.");

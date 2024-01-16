@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define MAX_ACCOUNT_LENGTH 40
+
 
 struct account_information;
 
@@ -62,4 +64,28 @@ void open_account(char* name, int balance){
 
 void account_deposit(){
     
+}
+
+int account_pin_exist(char* pin_number, char* bank_account){
+    const char* accounts_file_path = "accounts/account_pin_numbers.txt";
+    FILE *file = fopen(accounts_file_path, "r");    
+
+    // Check if the file was successfully opened
+    if (file == NULL) {
+        printf("Error opening the file!\n");
+    } 
+
+    char line[MAX_ACCOUNT_LENGTH];
+    while (fgets(line, sizeof(line), file) != NULL) {
+        if (strstr(line, bank_account) != NULL) {
+            if (strstr(line, pin_number) != NULL) {
+                fclose(file);
+                return 1; // Account found in the file
+            }
+            fclose(file);
+            return 2; // Account found in the file
+        }
+    }
+    fclose(file);
+    return 0;
 }

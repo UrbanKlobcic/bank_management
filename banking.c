@@ -1,3 +1,7 @@
+/*
+Authur: Urban Klobcic
+
+*/
 #include "banking.h"
 #include <stdio.h>
 #include <stdlib.h>
