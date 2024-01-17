@@ -68,17 +68,19 @@ void account_deposit(){
 
 int account_pin_exist(char* pin_number, char* bank_account){
     const char* accounts_file_path = "accounts/account_pin_numbers.txt";
-    FILE *file = fopen(accounts_file_path, "r");    
+    FILE *file = fopen(accounts_file_path, "r");  
+    char pin_number_str[20] = "PIN: "; 
 
     // Check if the file was successfully opened
     if (file == NULL) {
         printf("Error opening the file!\n");
     } 
-
+    strncat(pin_number_str, pin_number, 4);
+    printf("looking for %s\n", pin_number_str);
     char line[MAX_ACCOUNT_LENGTH];
     while (fgets(line, sizeof(line), file) != NULL) {
         if (strstr(line, bank_account) != NULL) {
-            if (strstr(line, pin_number) != NULL) {
+            if (strstr(line, pin_number_str) != NULL) {
                 fclose(file);
                 return 1; // Account found in the file
             }

@@ -56,12 +56,13 @@ void pars_command(){
                     }
                 }
                 printf("bank account %s \npin number: %s \n", bank_account, pin_number);
-                if(account_pin_exist(pin_number, bank_account)==0){
-                    
-                }else if(account_pin_exist(pin_number, bank_account)==1){
-
-                }else if(account_pin_exist(pin_number, bank_account)==2){
-                    
+                int account_pin_exist_return_value = account_pin_exist(pin_number, bank_account);
+                if(account_pin_exist_return_value==0){
+                    printf("No such bank account\n");
+                }else if(account_pin_exist_return_value==1){
+                    printf("correct bank account and pin number\n");
+                }else if(account_pin_exist_return_value==2){
+                    printf("Wrong pin number\n");
                 }
             }
         } else {
