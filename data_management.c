@@ -11,7 +11,7 @@ struct account_information;
 
 void account_file_creation(struct account_information *account_struct_ptr){
     char account_file_name[20];
-    sprintf(account_file_name, "accounts/%s.txt", account_struct_ptr->name);
+    sprintf(account_file_name, "accounts/%s.txt", account_struct_ptr -> account_num_and_pin_instance.account_number);
     FILE *file = fopen(account_file_name, "w+");
 
     // Check if the file was successfully opened
@@ -57,12 +57,20 @@ void open_account(char* name, int balance){
     strncpy(new_account.account_num_and_pin_instance.pin_number, new_account_pin_number->pin_number, sizeof(new_account_pin_number->pin_number) - 1);
     new_account.account_num_and_pin_instance.pin_number[sizeof(new_account.account_num_and_pin_instance.pin_number) - 1] = '\0';
     add_to_account_pin_number_file(new_account_pin_number);
+    printf("Your new bank account is %s and your pin number is %s.\n", new_account_pin_number->account_number, new_account_pin_number->pin_number);
     free(new_account_pin_number);
-
     account_file_creation(&new_account);
 }
 
 void account_deposit(){
+    
+}
+
+void account_withdraw(){
+    
+}
+
+void account_close(){
     
 }
 
