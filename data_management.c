@@ -70,7 +70,17 @@ void account_withdraw(){
     
 }
 
-void account_close(){
+void account_close(char* file_name){
+    const char *folder_path = "accounts/";
+    // Construct the full path to the file
+    char full_path[100];  // Adjust the size according to your needs
+    snprintf(full_path, sizeof(full_path), "%s/%s", folder_path, file_name);
+    // Attempt to delete the file
+    if (remove(full_path) == 0) {
+        printf("File '%s' deleted successfully.\n", full_path);
+    } else {
+        perror("Error deleting file");
+    }
     
 }
 
