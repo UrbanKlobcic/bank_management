@@ -6,5 +6,6 @@
 
 void communicate();
 void pars_command();
+char* return_line_to_remove();
 
 #endif

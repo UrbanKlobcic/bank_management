@@ -70,18 +70,26 @@ void account_withdraw(){
     
 }
 
-void account_close(char* file_name){
-    const char *folder_path = "accounts/";
-    // Construct the full path to the file
+void account_close(char* line_to_remove){
+    const char *folder_path = "accounts";
     char full_path[100];  // Adjust the size according to your needs
-    snprintf(full_path, sizeof(full_path), "%s/%s", folder_path, file_name);
+    char file_name[30];  // Adjust the size according to your needs
+
+    // Use sscanf to extract the substring
+    sscanf(line_to_remove, "ACCOUNT: %19[^P]", file_name);
+
+    snprintf(full_path, sizeof(full_path), "%s/%s.txt", folder_path, file_name);
+    printf("line to remove: %s\n", line_to_remove);
+    printf("remove this file: %s\n", full_path);
     // Attempt to delete the file
+    /*
     if (remove(full_path) == 0) {
         printf("File '%s' deleted successfully.\n", full_path);
+        //write a code to remove a line from a file
     } else {
         perror("Error deleting file");
-    }
-    
+    }*/
+
 }
 
 int account_pin_exist(char* pin_number, char* bank_account){

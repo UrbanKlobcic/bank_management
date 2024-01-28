@@ -2,6 +2,7 @@
 #include "data_management.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_BUFFER_SIZE 256
 
@@ -47,6 +48,46 @@ int check_account_pin_exists(){
     }
 }
 
+char* return_line_to_remove(){
+    int line_size = 100;
+    char communication_buffer[MAX_BUFFER_SIZE];
+    char* line_to_remove = (char*)malloc(line_size * sizeof(char));
+    if (line_to_remove != NULL) {
+        printf("please enter your bank account:\n");
+        char bank_account[MAX_BUFFER_SIZE];
+        char pin_number[MAX_BUFFER_SIZE];
+        if (fgets(communication_buffer, sizeof(communication_buffer), stdin) != NULL) {
+            if (sscanf(communication_buffer, "%19[^\n]", bank_account) == 1) {//process input 
+                
+            }
+        }
+        printf("And now your pin number:\n");
+        if (fgets(communication_buffer, sizeof(communication_buffer), stdin) != NULL) {
+            if (sscanf(communication_buffer, "%s", pin_number) == 1) {//process input
+                
+            }
+        }
+        printf("bank account %s \npin number: %s \n", bank_account, pin_number);
+        int account_pin_exist_return_value = account_pin_exist(pin_number, bank_account);
+        if(account_pin_exist_return_value==0){
+            printf("No such bank account\n");
+            return NULL;
+        }else if(account_pin_exist_return_value==1){
+            printf("Correct bank account and pin number\n");
+            snprintf(line_to_remove, line_size, "ACCOUNT: %s PIN: %s", bank_account, pin_number);
+            //printf("remove line: %s\n", line_to_remove);
+            return line_to_remove;
+        }else if(account_pin_exist_return_value==2){
+            printf("Wrong pin number\n");
+            return NULL;
+        }else{
+            return NULL;
+        }
+    }else{
+        return NULL;
+    }
+}
+
 void pars_command(){
     printf("Hello, enter a command:\n");
     printf("1 Withdrawal\n");
@@ -72,9 +113,12 @@ void pars_command(){
                     }
                 }
             }else if(command_selected == 4){//close an account
+                char* ptr_line_remove = return_line_to_remove();
                 printf("To close an account ");
-                if(check_account_pin_exists()){
+                if(ptr_line_remove != NULL){
                     printf("close account function\n");
+                    account_close(ptr_line_remove);
+                    free(ptr_line_remove);
                 }
             }else if(command_selected == 2){//deposit money
                 printf("To deposit money ");
