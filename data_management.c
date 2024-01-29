@@ -82,13 +82,46 @@ void account_close(char* line_to_remove){
     printf("line to remove: %s\n", line_to_remove);
     printf("remove this file: %s\n", full_path);
     // Attempt to delete the file
-    /*
+    
     if (remove(full_path) == 0) {
         printf("File '%s' deleted successfully.\n", full_path);
         //write a code to remove a line from a file
+        FILE *account_pin_numbers_file = fopen("accounts/account_pin_numbers.txt", "r+");
+    
+        if (account_pin_numbers_file == NULL) {
+            perror("Error opening file");
+        }
+        // Buffer to store each line of the file
+        char buffer[256];
+        long int currentPosition;
+        
+        // Iterate through each line in the file
+        while (fgets(buffer, sizeof(buffer), account_pin_numbers_file) != NULL) {
+            // Check if the line matches the search string
+            if (strstr(buffer, line_to_remove) != NULL) {
+                printf("came here!\n");
+                // Save the current position in the file
+                currentPosition = ftell(account_pin_numbers_file); 
+
+                // Move the file pointer to the beginning of the line
+                fseek(account_pin_numbers_file, currentPosition - strlen(buffer), SEEK_SET);
+
+                // Write the replacement string
+                fprintf(account_pin_numbers_file, "%s", "                                          ");
+
+                // Move the file pointer back to its original position
+                fseek(account_pin_numbers_file, currentPosition, SEEK_SET);
+
+                // Break out of the loop since the replacement is done
+                break;
+            }
+        }
+
+        // Close the file
+        fclose(account_pin_numbers_file);
     } else {
         perror("Error deleting file");
-    }*/
+    }
 
 }
 
